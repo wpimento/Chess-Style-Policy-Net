@@ -105,9 +105,41 @@ def split_position_dataset() -> None:
     )
     test_positions.to_parquet(TEST_PATH, index=False)
 
-    print(f"Saved: {TRAIN_PATH}")
+    print_split_summary(
+        name="Train",
+        positions=train_positions,
+    )
+
+    print_split_summary(
+        name="Validation",
+        positions=validation_positions,
+    )
+
+    print_split_summary(
+        name="Test",
+        positions=test_positions,
+    )
+
+    print(f"\nSaved: {TRAIN_PATH}")
     print(f"Saved: {VALIDATION_PATH}")
     print(f"Saved: {TEST_PATH}")
+
+# helper for displaying results
+def print_split_summary(
+    name: str,
+    positions: pd.DataFrame,
+) -> None:
+    number_of_positions = len(positions)
+    number_of_games = positions["game_uuid"].nunique()
+
+    earliest_time = positions["end_time"].min()
+    latest_time = positions["end_time"].max()
+
+    print(f"\n{name}:")
+    print(f"  Games: {number_of_games:,}")
+    print(f"  Positions: {number_of_positions:,}")
+    print(f"  Earliest end_time: {earliest_time}")
+    print(f"  Latest end_time: {latest_time}")
 
 if __name__ == "__main__":
     split_position_dataset()

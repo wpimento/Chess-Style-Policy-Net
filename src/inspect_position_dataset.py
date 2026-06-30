@@ -1,7 +1,7 @@
 from pathlib import Path
 import pandas as pd
 
-PATH = Path("data/processed/training_positions.parquet")
+PATH = Path("data/processed/position_dataset.parquet")
 
 df = pd.read_parquet(PATH)
 
@@ -15,7 +15,7 @@ print(f"Rows: {len(df)}")
 print(f"Games: {df['game_uuid'].nunique()}")
 print()
 
-# display training rows/positions for each time control
+# display positions for each time control
 print("Time classes:")
 print(df["time_class"].value_counts(dropna=False)) # include NaNs
 print()

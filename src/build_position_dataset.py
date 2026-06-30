@@ -4,7 +4,7 @@ import chess.pgn
 import io
 
 INPUT_PATH = Path("data/processed/games_raw.parquet")
-OUTPUT_PATH = Path("data/processed/training_positions.parquet")
+OUTPUT_PATH = Path("data/processed/position_dataset.parquet")
 OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
 def load_games() -> pd.DataFrame:

@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     policy_net = PolicyNetwork(5000)
 
-    dataset = ChessPositionDataset("data/processed/training_positions.parquet")
+    dataset = ChessPositionDataset("data/processed/position_dataset.parquet")
 
     loader = DataLoader(
         dataset,

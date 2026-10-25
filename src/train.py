@@ -10,7 +10,6 @@ from move_vocab import MOVE_VOCAB_SIZE
 
 CHECKPOINT_PATH = Path("models/latest_policy_net.pt")
 CHECKPOINT_PATH.parent.mkdir(parents=True, exist_ok=True)
-
 #* hyperparams
 EPOCHS = 30
 # controls how much move-time loss matters compared with policy loss

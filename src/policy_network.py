@@ -56,24 +56,3 @@ class PolicyNetwork(nn.Module):
         )
 
         return shared_embedding
-        
-#! temp
-if __name__ == "__main__":
-    from chess_position_dataset import ChessPositionDataset
-    from torch.utils.data import DataLoader
-
-    policy_net = PolicyNetwork(5000)
-
-    dataset = ChessPositionDataset("data/processed/position_dataset.parquet")
-
-    loader = DataLoader(
-        dataset,
-        batch_size=64,
-        shuffle=True
-    )
-
-    # process each batch
-    for board_batch, context_batch in loader:
-        policy_logits, move_time_logits = policy_net(board_batch, context_batch)
-
-        print(policy_logits.shape, move_time_logits.shape)

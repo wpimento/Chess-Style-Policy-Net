@@ -102,18 +102,3 @@ def encode_game_info(board: chess.Board) -> torch.Tensor:
             enc_en_passant_target
         ]
     )
-
-if __name__ == "__main__":
-    from chess_position_dataset import ChessPositionDataset
-    from torch.utils.data import DataLoader
-
-    dataset = ChessPositionDataset("data/processed/train_positions.parquet")
-
-    loader = DataLoader(
-        dataset,
-        batch_size=64,
-        shuffle=True
-    )
-
-    for board_batch in loader:
-        print(board_batch.shape)

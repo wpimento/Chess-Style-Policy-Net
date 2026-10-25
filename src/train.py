@@ -26,7 +26,7 @@ policy_net = PolicyNetwork(MOVE_VOCAB_SIZE).to(device)
 
 print(f"Training on {device}")
 
-dataset = ChessPositionDataset("data/processed/training_positions.parquet")
+dataset = ChessPositionDataset("data/processed/train_positions.parquet")
 
 loader = DataLoader(
     dataset,

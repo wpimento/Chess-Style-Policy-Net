@@ -1,3 +1,26 @@
+# Python
 __pycache__/
+*.py[cod]
+
+# Virtual environments
 .venv/
+venv/
+
+# Environment variables
+.env
+.env.*
+
+# Generated datasets
 /data/
+
+# Model checkpoints
+/models/
+/checkpoints/
+*.pt
+*.pth
+
+# Testing and editor files
+.pytest_cache/
+.ruff_cache/
+.vscode/
+.idea/

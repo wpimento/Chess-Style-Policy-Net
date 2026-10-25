@@ -1,0 +1,58 @@
+from resnet_cnn import ChessResNet
+from context_mlp import ContextMLP
+import torch.nn as nn
+import torch
+
+class PolicyNetwork(nn.Module):
+    def __init__(self, num_moves: int):
+        super().__init__()
+
+        self.board_nn = ChessResNet()
+        self.context_nn = ContextMLP()
+
+        # (batch_size, 320) -> (batch_size, num_moves)
+        self.policy_head = nn.Sequential(
+            nn.Linear(320, 256),
+            nn.ReLU(inplace=True),
+            nn.Linear(256, num_moves)
+        )
+
+        # (batch_size, 320) -> (batch_size, 5)
+        self.move_time_head = nn.Sequential(
+            nn.Linear(320, 64),
+            nn.ReLU(inplace=True),
+            nn.Linear(64, 5)
+        )
+    
+    def forward(
+        self,
+        board_batch: torch.Tensor,
+        context_batch: torch.Tensor
+    ) -> tuple[torch.Tensor, torch.Tensor]:
+        shared_embedding = self.get_shared_embedding(
+            board_batch,
+            context_batch
+        )
+
+        # feed shared embedding to both policy and move-time heads
+        # policy out: num_moves from UCI vocab
+        # move-time out: 5 defined time buckets
+        
+        policy_logits = self.policy_head(shared_embedding)
+        move_time_logits = self.move_time_head(shared_embedding)
+
+        return policy_logits, move_time_logits
+
+    def get_shared_embedding(self, board_batch: torch.Tensor, context_batch: torch.Tensor) -> torch.Tensor:
+        x_board = board_batch
+        board_embedding = self.board_nn(x_board)
+
+        x_context = context_batch
+        context_embedding = self.context_nn(x_context)
+
+        shared_embedding = torch.cat(
+            [board_embedding, context_embedding],
+            dim=1
+        )
+
+        return shared_embedding

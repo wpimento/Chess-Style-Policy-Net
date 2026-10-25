@@ -107,7 +107,7 @@ if __name__ == "__main__":
     from chess_position_dataset import ChessPositionDataset
     from torch.utils.data import DataLoader
 
-    dataset = ChessPositionDataset("data/processed/training_positions.parquet")
+    dataset = ChessPositionDataset("data/processed/train_positions.parquet")
 
     loader = DataLoader(
         dataset,

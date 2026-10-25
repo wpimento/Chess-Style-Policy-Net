@@ -45,7 +45,7 @@ def get_games(username) -> None:
     archives = get_json(archives_url)
 
     # save JSON
-    archives_output_path = Path("../data/archives.json")
+    archives_output_path = user_raw_dir / "archives.json"
     save_json(archives, archives_output_path)
     
     ## GET monthly game info

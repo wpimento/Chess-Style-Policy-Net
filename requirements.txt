@@ -3,3 +3,4 @@ python-chess
 requests
 pyarrow
 pandas
+torch

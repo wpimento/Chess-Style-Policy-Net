@@ -32,3 +32,6 @@ def encode_context(row: pd.Series) -> torch.Tensor:
     ]
 
     return torch.tensor(context, dtype=torch.float32)
+
+#! add context feature scaling; initial loss values are unusually high
+# e.g. my_rating (4 digits) is higher than another feature like is_blitz (0-1)
